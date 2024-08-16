@@ -1,49 +1,51 @@
 import fetch from "node-fetch";
 import { ContractTag, ITagService } from "atq-types";
 
+// Subgraph URLs for various chains
 const SUBGRAPH_URLS: Record<string, { decentralized: string }> = {
- // Arbitrum One
-  "42161": {
-    decentralized:
-      "https://gateway.thegraph.com/api/[api-key]/subgraphs/id/4vRhyrcGqN63T7FXvL9W5X72iQN8H9fDNfLcUQBG91Wi",
-  }, // SushiSwap official subgraph, verifieable on https://docs.sushi.com/docs/Developers/Subgraphs/Overview
-  // Avalanche C-Chain BSC
-  "43114": {
-    decentralized:
-      "https://gateway.thegraph.com/api/[api-key]/subgraphs/id/HE31GSTGpXsRnuT4sAJoFayGBZX2xBQqWq4db48YuKmD",
-  }, // SushiSwap official subgraph, verifieable on https://docs.sushi.com/docs/Developers/Subgraphs/Overview
-  // BSC
-  "56": {
-    decentralized:
-      "https://gateway.thegraph.com/api/[api-key]/subgraphs/id/GtUp5iLfjfYXtX76wF1yyteSSC5WqnYV8br5ixHZgFmW",
-  }, // SushiSwap official subgraph, verifieable on https://docs.sushi.com/docs/Developers/Subgraphs/Overview
-  // Ethereum Mainnet
+  // Ethereum Mainnet, verifieable on https://docs.sushi.com/docs/Developers/Subgraphs/Overview
   "1": {
     decentralized:
       "https://gateway.thegraph.com/api/[api-key]/subgraphs/id/7okunX6MGm2pdFK7WJSwm9o82okpBLEzfGrqHDDMWYvq",
-  }, // SushiSwap official subgraph, verifieable on https://docs.sushi.com/docs/Developers/Subgraphs/Overview
-  // Fantom
-  "250": {
-    decentralized:
-      "https://gateway.thegraph.com/api/[api-key]/subgraphs/id/6z2W9fLTVmhpCecSMTMpRNeSBTRPJLmKsSXrtdkpeJDz",
-  }, // SushiSwap official subgraph, verifieable on https://docs.sushi.com/docs/Developers/Subgraphs/Overview
-  // Gnosis
-  "100": {
-    decentralized:
-      "https://gateway.thegraph.com/api/[api-key]/subgraphs/id/hS35uHcFDVSxJQV1XWht7yMdGTRNVa9poYTpcEZ9uAQ",
-  }, // SushiSwap official subgraph, verifieable on https://docs.sushi.com/docs/Developers/Subgraphs/Overview
-  // Optimism
+  },
+  // Optimism, verifieable on https://docs.sushi.com/docs/Developers/Subgraphs/Overview
   "10": {
     decentralized:
       "https://gateway.thegraph.com/api/[api-key]/subgraphs/id/Hc3vTLxWmtyrn59t2Yv3MiXJVxjfNyZi41iKE3rXXHMf",
-  }, // SushiSwap official subgraph, verifieable on https://docs.sushi.com/docs/Developers/Subgraphs/Overview
-  // Polygon
+  },
+  // BSC, verifieable on https://docs.sushi.com/docs/Developers/Subgraphs/Overview
+  "56": {
+    decentralized:
+      "https://gateway.thegraph.com/api/[api-key]/subgraphs/id/GtUp5iLfjfYXtX76wF1yyteSSC5WqnYV8br5ixHZgFmW",
+  },
+  // Gnosis, verifieable on https://docs.sushi.com/docs/Developers/Subgraphs/Overview
+  "100": {
+    decentralized:
+      "https://gateway.thegraph.com/api/[api-key]/subgraphs/id/hS35uHcFDVSxJQV1XWht7yMdGTRNVa9poYTpcEZ9uAQ",
+  },
+  // Polygon, verifieable on https://docs.sushi.com/docs/Developers/Subgraphs/Overview
   "137": {
     decentralized:
       "https://gateway.thegraph.com/api/[api-key]/subgraphs/id/G1Q6dviDfMm6hVLvCqbfeB19kLmvs7qrnBvXeFndjhaU",
-  }, // SushiSwap official subgraph, verifieable on https://docs.sushi.com/docs/Developers/Subgraphs/Overview
+  },
+  // Fantom, verifieable on https://docs.sushi.com/docs/Developers/Subgraphs/Overview
+  "250": {
+    decentralized:
+      "https://gateway.thegraph.com/api/[api-key]/subgraphs/id/6z2W9fLTVmhpCecSMTMpRNeSBTRPJLmKsSXrtdkpeJDz",
+  },
+  // Arbitrum One, verifieable on https://docs.sushi.com/docs/Developers/Subgraphs/Overview
+  "42161": {
+    decentralized:
+      "https://gateway.thegraph.com/api/[api-key]/subgraphs/id/4vRhyrcGqN63T7FXvL9W5X72iQN8H9fDNfLcUQBG91Wi",
+  },
+  // Avalanche C-Chain, verifieable on https://docs.sushi.com/docs/Developers/Subgraphs/Overview
+  "43114": {
+    decentralized:
+      "https://gateway.thegraph.com/api/[api-key]/subgraphs/id/HE31GSTGpXsRnuT4sAJoFayGBZX2xBQqWq4db48YuKmD",
+  },
 };
 
+// The Graph API queries and types
 interface PoolToken {
   id: string;
   name: string;
@@ -66,7 +68,7 @@ interface GraphQLResponse {
   errors?: { message: string }[]; // Assuming the API might return errors in this format
 }
 
-// defining headers for query
+// Defining headers for the query
 const headers: Record<string, string> = {
   "Content-Type": "application/json",
   Accept: "application/json",
@@ -107,11 +109,7 @@ function isError(e: unknown): e is Error {
 
 function containsHtmlOrMarkdown(text: string): boolean {
   // Simple HTML tag detection
-  if (/<[^>]*>/.test(text)) {
-    return true;
-  }
-
-  return false;
+  return /<[^>]*>/.test(text);
 }
 
 function isEmptyOrInvalid(text: string): boolean {
@@ -154,7 +152,6 @@ function prepareUrl(chainId: string, apiKey: string): string {
   const urls = SUBGRAPH_URLS[chainId];
   if (!urls || isNaN(Number(chainId))) {
     const supportedChainIds = Object.keys(SUBGRAPH_URLS).join(", ");
-
     throw new Error(
       `Unsupported or invalid Chain ID provided: ${chainId}. Only the following values are accepted: ${supportedChainIds}`
     );
@@ -191,7 +188,7 @@ function transformPoolsToTags(chainId: string, pools: Pool[]): ContractTag[] {
   });
 
   if (rejectedNames.length > 0) {
-    console.log("Rejected token names due to HTML/Markdown content or being empty:", rejectedNames);
+    console.log("Rejected contracts:", rejectedNames);
   }
 
   return validPools.map((pool) => {
