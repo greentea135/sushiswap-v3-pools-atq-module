@@ -202,9 +202,9 @@ function transformPoolsToTags(chainId: string, pools: Pool[]): ContractTag[] {
     return {
       "Contract Address": `eip155:${chainId}:${pool.id}`,
       "Public Name Tag": `${truncatedSymbolsText} Pool`,
-      "Project Name": "Uniswap v3",
-      "UI/Website Link": "https://uniswap.org",
-      "Public Note": `The liquidity pool contract on Uniswap v3 for the ${pool.token0.name} (${pool.token0.symbol}) / ${pool.token1.name} (${pool.token1.symbol}) pair.`,
+      "Project Name": "SushiSwap v3",
+      "UI/Website Link": "https://www.sushi.com/",
+      "Public Note": `The liquidity pool contract on SushiSwap v3 for the ${pool.token0.name} (${pool.token0.symbol}) / ${pool.token1.name} (${pool.token1.symbol}) pair.`,
     };
   });
 }
