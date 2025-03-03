@@ -3,45 +3,90 @@ import { ContractTag, ITagService } from "atq-types";
 
 // Subgraph URLs for various chains
 const SUBGRAPH_URLS: Record<string, { decentralized: string }> = {
-  // Ethereum Mainnet, verifieable on https://docs.sushi.com/docs/Developers/Subgraphs/Overview
+  // Ethereum Mainnet, verifieable on https://docs.sushi.com/subgraphs/clamm
   "1": {
     decentralized:
-      "https://gateway.thegraph.com/api/[api-key]/subgraphs/id/7okunX6MGm2pdFK7WJSwm9o82okpBLEzfGrqHDDMWYvq",
+      "https://gateway.thegraph.com/api/[api-key]/subgraphs/id/5nnoU1nUFeWqtXgbpC54L9PWdpgo7Y9HYinR3uTMsfzs",
   },
-  // Optimism, verifieable on https://docs.sushi.com/docs/Developers/Subgraphs/Overview
+  // Optimism, verifieable on https://docs.sushi.com/subgraphs/clamm
   "10": {
     decentralized:
-      "https://gateway.thegraph.com/api/[api-key]/subgraphs/id/Hc3vTLxWmtyrn59t2Yv3MiXJVxjfNyZi41iKE3rXXHMf",
+      "https://gateway.thegraph.com/api/[api-key]/subgraphs/id/Dr3FkshPgTMMDwxckz3oZdwLxaPcbzZuAbE92i6arYtJ",
   },
-  // BSC, verifieable on https://docs.sushi.com/docs/Developers/Subgraphs/Overview
+  // BSC, verifieable on https://docs.sushi.com/subgraphs/clamm
   "56": {
     decentralized:
-      "https://gateway.thegraph.com/api/[api-key]/subgraphs/id/GtUp5iLfjfYXtX76wF1yyteSSC5WqnYV8br5ixHZgFmW",
+      "https://gateway.thegraph.com/api/[api-key]/subgraphs/id/FiJDXMFCBv88GP17g2TtPh8BcA8jZozn5WRW7hCN7cUT",
   },
-  // Gnosis, verifieable on https://docs.sushi.com/docs/Developers/Subgraphs/Overview
+  // Gnosis, verifieable on https://docs.sushi.com/subgraphs/clamm
   "100": {
     decentralized:
-      "https://gateway.thegraph.com/api/[api-key]/subgraphs/id/hS35uHcFDVSxJQV1XWht7yMdGTRNVa9poYTpcEZ9uAQ",
+      "https://gateway.thegraph.com/api/[api-key]/subgraphs/id/GFvGfWBX47RNnvgwL6SjAAf2mrqrPxF91eA53F4eNegW",
   },
-  // Polygon, verifieable on https://docs.sushi.com/docs/Developers/Subgraphs/Overview
+  // Fuse, verifieable on https://docs.sushi.com/subgraphs/clamm
+  "122": {
+    decentralized:
+      "https://gateway.thegraph.com/api/[api-key]/subgraphs/id/8P62wYTJvhd6Aas656hVYhsccsGo2ihrJShaEnCoLJRK",
+  },
+  // Polygon, verifieable on https://docs.sushi.com/subgraphs/clamm
   "137": {
     decentralized:
-      "https://gateway.thegraph.com/api/[api-key]/subgraphs/id/G1Q6dviDfMm6hVLvCqbfeB19kLmvs7qrnBvXeFndjhaU",
+      "https://gateway.thegraph.com/api/[api-key]/subgraphs/id/CqLnQY1d6DLcBYu7aZvGmt17LoNdTe4fDYnGbE2EgotR",
   },
-  // Fantom, verifieable on https://docs.sushi.com/docs/Developers/Subgraphs/Overview
+  // Sonic, verifieable on https://docs.sushi.com/subgraphs/clamm
+  "146": {
+    decentralized:
+      "https://gateway.thegraph.com/api/[api-key]/subgraphs/id/5ijXw9MafwFkXgoHmUiWsWHvRyYAL3RD4smnmBLmNPnw",
+  },
+  // Fantom, verifieable on https://docs.sushi.com/subgraphs/clamm
   "250": {
     decentralized:
-      "https://gateway.thegraph.com/api/[api-key]/subgraphs/id/6z2W9fLTVmhpCecSMTMpRNeSBTRPJLmKsSXrtdkpeJDz",
+      "https://gateway.thegraph.com/api/[api-key]/subgraphs/id/4BzEvR229mwKjneCbJTDM8dsS3rjgoKcXt5C7J1DaUxK",
   },
-  // Arbitrum One, verifieable on https://docs.sushi.com/docs/Developers/Subgraphs/Overview
+  // Boba, verifieable on https://docs.sushi.com/subgraphs/clamm
+  "288": {
+    decentralized:
+      "https://gateway.thegraph.com/api/[api-key]/subgraphs/id/71VWMKCvsWRqrJouxmEQwSEMqqnqiiVYSxTZvzR8PHRx",
+  },
+  // Polygon zkEVM, verifieable on https://docs.sushi.com/subgraphs/clamm
+  "1101": {
+    decentralized:
+      "https://gateway.thegraph.com/api/[api-key]/subgraphs/id/E2x2gmtYdm2HX3QXorUBY4KegfGu79Za6TEQYjVrx15c",
+  },
+  // Moonriver, verifieable on https://docs.sushi.com/subgraphs/clamm
+  "1285": {
+    decentralized:
+      "https://gateway.thegraph.com/api/[api-key]/subgraphs/id/F46W9YVQXGism5iN9NZNhKm2DQCvjhr4u847rL1tRebS",
+  },
+  // Base, verifieable on https://docs.sushi.com/subgraphs/clamm
+  "8453": {
+    decentralized:
+      "https://gateway.thegraph.com/api/[api-key]/subgraphs/id/Cz4Snpih41NNNPZcbj1gd3fYXPwFr5q92iWMoZjCarEb",
+  },
+  // Arbitrum One, verifieable on https://docs.sushi.com/subgraphs/clamm
   "42161": {
     decentralized:
-      "https://gateway.thegraph.com/api/[api-key]/subgraphs/id/4vRhyrcGqN63T7FXvL9W5X72iQN8H9fDNfLcUQBG91Wi",
+      "https://gateway.thegraph.com/api/[api-key]/subgraphs/id/96EYD64NqmnFxMELu2QLWB95gqCmA9N96ssYsZfFiYHg",
   },
-  // Avalanche C-Chain, verifieable on https://docs.sushi.com/docs/Developers/Subgraphs/Overview
+  // Hemi, verifieable on https://docs.sushi.com/subgraphs/clamm
+  "43111": {
+    decentralized:
+      "https://gateway.thegraph.com/api/[api-key]/subgraphs/id/GQU44ZBv8NpiBUxA6eLSDSdd7bs6TVop9dASKzrdirUv",
+  },
+  // Avalanche C-Chain, verifieable on https://docs.sushi.com/subgraphs/clamm
   "43114": {
     decentralized:
-      "https://gateway.thegraph.com/api/[api-key]/subgraphs/id/HE31GSTGpXsRnuT4sAJoFayGBZX2xBQqWq4db48YuKmD",
+      "https://gateway.thegraph.com/api/[api-key]/subgraphs/id/4BxsTB5ADnYdgJgdmzyddmnDGCauctDia28uxB1hgTBE",
+  },
+  // Scroll, verifieable on https://docs.sushi.com/subgraphs/clamm
+  "534352": {
+    decentralized:
+      "https://gateway.thegraph.com/api/[api-key]/subgraphs/id/5gyhoHx768oHn3GxsHsEc7oKFMPFg9AH8ud1dY8EirRc",
+  },
+  // Linea, verifieable on https://docs.sushi.com/subgraphs/clamm
+  "59144": {
+    decentralized:
+      "https://gateway.thegraph.com/api/[api-key]/subgraphs/id/E2vqqvSzDdUiPP1r7PFnPKZQ34pAhNZjc6rEcdj3uE5t",
   },
 };
 
@@ -199,9 +244,9 @@ function transformPoolsToTags(chainId: string, pools: Pool[]): ContractTag[] {
     return {
       "Contract Address": `eip155:${chainId}:${pool.id}`,
       "Public Name Tag": `${truncatedSymbolsText} Pool`,
-      "Project Name": "SushiSwap v3",
+      "Project Name": "Sushi v3",
       "UI/Website Link": "https://www.sushi.com/",
-      "Public Note": `The liquidity pool contract on SushiSwap v3 for the ${pool.token0.name} (${pool.token0.symbol}) / ${pool.token1.name} (${pool.token1.symbol}) pair.`,
+      "Public Note": `The liquidity pool contract on Sushi v3 for the ${pool.token0.name} (${pool.token0.symbol}) / ${pool.token1.name} (${pool.token1.symbol}) pair.`,
     };
   });
 }
